@@ -1,0 +1,23 @@
+<!---->
+<launch>
+
+<!-- apply laser filter for front scan (cloud filter)-->
+<node pkg="laser_filters" type="scan_to_cloud_filter_chain" output="screen" name="cloud_obstacle_front">
+<remap from="scan" to="/lms1xx_front/scan" />
+<remap from="cloud_filtered" to="error_cloud_front"/>
+<param name="high_fidelity" value="true" />
+<param name="target_frame" type="string" value="base_link" />
+<rosparam command="load" file="$(find fieldrobot_05)/launch/filters/filter_obstacle.yaml" />
+</node>
+
+<!-- apply laser filter for back scan (cloud filter)-->
+<node pkg="laser_filters" type="scan_to_cloud_filter_chain" output="screen" name="cloud_obstacle_back">
+<remap from="scan" to="/lms1xx_back/scan" />
+<remap from="cloud_filtered" to="error_cloud_back"/>
+<param name="high_fidelity" value="true" />
+<param name="target_frame" type="string" value="base_link" />
+<rosparam command="load" file="$(find fieldrobot_05)/launch/filters/filter_obstacle.yaml" />
+</node>
+
+
+</launch>

@@ -1,0 +1,18 @@
+<!---->
+<launch>
+
+
+	<!---aply a voxel grid to kinect data -->
+	<node pkg="fieldrobot_05" type="kinect_row_speed_extractor" output="screen" name="kinect_row_speed_extractor">
+		<param name="kinect_data" value="/front_cloud_filtered" />
+		<param name="frame_id" value="lms1xx_front" />
+		<param name="cmd_vel" value="/cmd_vel_obstacle" />
+		<param name="speed_max" value="0.5" />
+		<param name="angle_max" value="1.0" />
+		<param name="stop_radius" value="0.4" />
+		<param name="save_radius" value="0.5" />
+		<param name="action_radius" value="1.0" />
+
+
+	</node>
+</launch>

@@ -1,0 +1,25 @@
+<!---->
+<launch>
+	<node pkg="fieldrobot_05" type="mode_changer" name="mode_changer" output="screen">
+			
+			<param name="cmd_vel_joy" value="/cmd_vel_joy"/>
+			<param name="cmd_vel_point" value="/cmd_vel_point"/>
+			<param name="cmd_vel_static" value="/cmd_vel_static"/>
+			<param name="cmd_vel_row" value="/cmd_vel_row"/>
+			<param name="cmd_vel_obstacle" value="/cmd_vel_obstacle"/>
+
+			<param name="cmd_vel_pub" value="/cmd_vel"/>
+			<param name="mode_sub" value="/mode_sub"/>
+			<param name="mode_change_duration" value="10"/>
+		
+			<param name="start_button" value="/joy/button_A"/>
+			<param name="stop_button" value="/joy/button_B"/>
+			<param name="action_button_1" value="/joy/button_X"/>
+			<param name="action_button_2" value="/joy/button_Y"/>
+			<param name="odom_reset" value="/odom_set"/>
+			<param name="distance_sub" value="/goal"/>
+			
+		</node>
+
+
+</launch>

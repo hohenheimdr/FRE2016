@@ -1,0 +1,13 @@
+<!---->
+<launch>
+<node pkg="fieldrobot_05" type="laser_navigation" name="laser_navigation" output="screen">
+		<param name="source" value="/front_cloud_filtered"/>
+		<param name="publisher" value="/goal_laser"/>
+		<param name="goal_sub" value="/goal"/>
+		<param name="odometry_sub" value="/fmKnowledge/odometry"/>
+		<param name="laser_frame" value="/lms1xx_front"/>
+		<param name="rabbit_frame" value="/rabbit_laser2"/>
+		
+	</node>
+
+</launch>

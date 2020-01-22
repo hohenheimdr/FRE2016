@@ -1,0 +1,57 @@
+<!---->
+<launch>
+<!-- allways start joystick with motorcontroller for user input! -->
+
+<group ns="motorcontrollers">	
+		<node pkg="fieldrobot_05" type="sdc2130_core" name="sdc2130" output="screen" respawn="true">
+			<param name="toggle_turn" value="true"/>
+			<param name="port" value="/dev/ttyACM1"/>
+			<param name="speed_sub" value="/cmd_vel_joy" />
+			<param name="max_controller_command" value="1000" />
+			<param name="max_acceleration" value="5000"/>
+			<param name="max_decceleration" value="12000"/>
+			<!--<param name="ticks_per_meter_left" value="108000"></param>  
+			<param name="ticks_per_meter_right" value="138000"></param> -->
+			<param name="vel_max" value="1.0"/>
+			<param name="angle_max" value="1.0"/> 
+			<param name="output_max" value="1000"/>
+			<param name="output_offset_left" value="100"/>
+			<param name="output_offset_right" value="100"/>
+			<param name="P" value="0.9"/>
+			<param name="I" value="0.5"/>
+			<param name="D" value="1.9"/>
+			<param name="closed_loop" value="false"/>
+			<param name="odometry_sub" value="/fmKnowledge/odometry"/>
+			<param name="distance_center_to_wheel" value="1.0"/>	
+		  
+		</node>
+		
+
+			<node pkg="fieldrobot_05" type="sdc2130_core" name="sdc2130_2" output="screen" respawn="false">
+				<param name="toggle_turn" value="true"/>
+				<param name="port" value="/dev/ttyACM0"/>
+				<param name="speed_sub" value="/cmd_vel_joy" />
+				<param name="max_controller_command" value="1000" />
+				<param name="max_acceleration" value="5000"/>
+				<param name="max_decceleration" value="12000"/>
+				<!--<param name="ticks_per_meter_left" value="108000"></param>  
+				<param name="ticks_per_meter_right" value="138000"></param> -->
+				<param name="vel_max" value="1.0"/>
+				<param name="angle_max" value="1.0"/> 
+				<param name="output_max" value="1000"/>
+				<param name="output_offset_left" value="100"/>
+				<param name="output_offset_right" value="100"/>
+				<param name="P" value="0.9"/>
+				<param name="I" value="0.5"/>
+				<param name="D" value="1.9"/>
+				<param name="closed_loop" value="false"/>
+				<param name="odometry_sub" value="/fmKnowledge/odometry"/>
+				<param name="distance_center_to_wheel" value="1.0"/>	
+			  
+			</node>
+
+		
+	</group>
+
+
+</launch>

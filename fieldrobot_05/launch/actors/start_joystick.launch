@@ -1,0 +1,16 @@
+<!---->
+<launch>
+	<node pkg="joy" type="joy_node" name="joystick" output="screen"/>
+
+	<node pkg="joy" type="joy_node" name="joy_node" output="screen">
+			<param name="joy_node/dev" value="/dev/input/js0"/>
+	</node>
+
+	<node pkg="fieldrobot_05" type="joystick_core" name="joy" output="screen">
+			<param name="joy_sub" value="/joy"/>
+			<param name="cmd_vel" value="/cmd_vel_joy"/>
+			<param name="cmd_vel_frame" value="/base_link"/>
+	</node>
+
+</launch>
+

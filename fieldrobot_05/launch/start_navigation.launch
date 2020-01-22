@@ -1,0 +1,16 @@
+<!--starting the basic functions and sensors of the robot -->
+<launch>
+	<!--start mode changer for setting the different speeds for the navigation-->
+	<include file="$(find fieldrobot_05)/launch/navigation/start_mode_changer.launch"/>
+	<!--start imu -->
+	<include file="$(find fieldrobot_05)/launch/sensors/start_imu.launch"/>
+	<!--start joystick-->
+	<include file="$(find fieldrobot_05)/launch/actors/start_joystick.launch"/>
+	<!-- start motorcontrollers (allways with overlay of joystick controll -->
+	<include file="$(find fieldrobot_05)/launch/actors/start_motorcontrollers.launch"/>
+	<!-- start the robot model-->
+	<include file="$(find fieldrobot_05)/launch/robot_model/start_robot_model.launch"/>
+	<!--start local positioning with odometry and imu input-->
+	<include file="$(find fieldrobot_05)/launch/robot_model/start_odometry.launch"/>
+	
+</launch>

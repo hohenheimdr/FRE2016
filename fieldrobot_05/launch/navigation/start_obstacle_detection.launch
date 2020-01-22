@@ -1,0 +1,72 @@
+<!-- talos start up navigation launch file -->
+<launch>
+<!--start up the basic filter and sensornodes-->
+
+<include file="$(find fieldrobot_05)/launch/sensors/start_laserscanners.launch"/>
+<include file="$(find fieldrobot_05)/launch/filters/start_laser_filter.launch"/>  
+<!--<include file="$(find fieldrobot_05)/launch/filters/start_cloud_filter.launch"/>-->
+
+<include file="$(find fieldrobot_05)/launch/filters/start_cloud_navigation_filters.launch"/>
+
+<!--start positioning with odometry and imu input-->
+<include file="$(find fieldrobot_05)/launch/start_navigation.launch"/>
+
+<!--read goals from person follower and publish them for the laser_scanner_node-->
+	<node pkg="goal_manager" type="goal_manager" name="goal_manager" output="screen">
+		<param name="next_waypoint" value="/goal"/>
+		<param name="waypoint_list" value="../src/talos/launch/schülerdemo/waypoints.txt"/>
+		<param name="distance" value="/fmControllers/goal_distance"/>
+		<param name="min_distance" value="0.2"/>
+		<param name="path_publisher" value="/goalpath"/>
+		
+		<param name="frequency" value="100"/>
+		<param name="user_goal_input" value="/move_base_simple/goal"/>
+		
+	</node>
+
+	<!--create a velocity command out of the position and the next waypoint (just deterministic)-->
+	<node pkg="fieldrobot_05" name="rabbit_follower" type="rabbit_follower_node">
+		    <param name="cmd_vel_topic_id" value="/cmd_vel_point"/>
+		    <param name="rabbit_frame_id" value="/rabbit_laser"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+		    <param name="P_gain" value="1.0"/>
+		    <param name="I_gain" value="0.0"/>
+		    <param name="I_max" value="10"/>
+                    <param name="D_gain" value="1.0"/>
+		    <param name="field_of_view_rad" value="10.0"/>
+		    <param name="max_angular_vel" value="0.3"/>
+		    <param name="max_linear_vel" value="0.3"/>
+		    <param name="oscilation_bounds" value="2.0"/>
+		    <param name="waypoint_dist" value="0.05"/>
+		   <!--do not stop at every point-->
+		    <param name="slow_down" value="true"/>
+	</node>
+
+<!--check the laser pointcloud for emergency stops and give back how to turn at the place--> 
+	<node pkg="talos" type="error_laser_cmd" name="error_laser_cmd" output="screen">
+		<param name="front_cloud" value="/error_cloud_front"/>
+		<param name="back_cloud" value="/error_cloud_back"/>
+		<param name="front_left" value="/front_left"/>
+		<param name="front_right" value="/front_right"/>		
+		<param name="back_left" value="/back_left"/>
+		<param name="back_right" value="/back_right"/>
+		<param name="point_ignore" value="1"/>
+	</node>
+
+<node pkg="talos" type="laser_navigation" name="laser_navigation" output="screen">
+		<param name="source" value="/front_cloud_filtered"/>
+		<param name="publisher" value="/goal_new"/>
+		<param name="goal_sub" value="/goal"/>
+		<param name="odometry_sub" value="/fmKnowledge/odometry"/>
+		<param name="laser_frame" value="/lms1xx_front"/>
+		<param name="rabbit_frame" value="/rabbit_laser"/>
+		
+	</node>
+
+
+<!-- start visualisation -->
+<node pkg="rqt_gui" type="rqt_gui" name="rqt" output="screen">
+</node>
+
+</launch>
+

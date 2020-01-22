@@ -1,0 +1,70 @@
+<!--starting the basic functions and sensors of the robot -->
+<launch>
+<!--<param name="use_sim_time" value="true"/>-->
+	<!--start laserscanners with overlay of the positions-->
+	<!--start imu -->
+	<include file="$(find fieldrobot_05)/launch/sensors/start_imu.launch"/>
+	<!--start joystick-->
+	<include file="$(find fieldrobot_05)/launch/actors/start_joystick.launch"/>
+	<!-- start motorcontrollers (allways with overlay of joystick controll -->
+	<include file="$(find fieldrobot_05)/launch/actors/start_motorcontrollers.launch"/>
+	<!-- start the robot model-->
+	<include file="$(find fieldrobot_05)/launch/robot_model/start_robot_model.launch"/>
+	<!--start local positioning with odometry and imu input-->
+	<include file="$(find fieldrobot_05)/launch/robot_model/start_odometry.launch"/>
+	<!--start mode changer for setting the different speeds for the navigation-->
+	<include file="$(find fieldrobot_05)/launch/navigation/start_mode_changer_demo.launch"/>
+
+	<include file="$(find fieldrobot_05)/launch/sensors/start_laserscanners.launch"/>
+	<include file="$(find fieldrobot_05)/launch/filters/start_cloud_filter.launch"/>
+	<include file="$(find fieldrobot_05)/launch/filters/start_cloud_navigation_filters.launch"/>
+	
+	#create coresponding speed....
+<!--create a velocity command out of the position and the next waypoint (just deterministic)-->
+	<node pkg="fieldrobot_05" name="rabbit_follower_basic" type="rabbit_follower_node">
+		    <param name="cmd_vel_topic_id" value="/cmd_vel_line"/>
+		    <param name="rabbit_frame_id" value="/rabbit"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+		    <param name="P_gain" value="0.8"/>
+		    <param name="I_gain" value="0.05"/>
+		    <param name="I_max" value="10"/>
+                    <param name="D_gain" value="0.05"/>
+		    <param name="field_of_view_rad" value="10.0"/>
+		    <param name="max_angular_vel" value="0.5"/>
+		    <param name="max_linear_vel" value="0.5"/>
+		    <param name="oscilation_bounds" value="2.0"/>
+		    <param name="waypoint_dist" value="0.1"/>
+		  
+		    <param name="slow_down" value="true"/>
+	</node>
+
+<node pkg="fieldrobot_05" type="laser_navigation" name="laser_navigation" output="screen">
+		<param name="source" value="/front_cloud_filtered"/>
+		<param name="publisher" value="/goal_laser"/>
+		<param name="goal_sub" value="/goal"/>
+		<param name="odometry_sub" value="/fmKnowledge/odometry"/>
+		<param name="laser_frame" value="/lms1xx_front"/>
+		<param name="rabbit_frame" value="/rabbit_laser"/>
+		
+	</node>
+
+<!--create a velocity command out of the position and the next waypoint (just deterministic)-->
+	<node pkg="fieldrobot_05" name="rabbit_follower_obstacle" type="rabbit_follower_node">
+		    <param name="cmd_vel_topic_id" value="/cmd_vel_row"/>
+		    <param name="rabbit_frame_id" value="/rabbit_laser"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+		    <param name="P_gain" value="0.8"/>
+		    <param name="I_gain" value="0.0"/>
+		    <param name="I_max" value="10"/>
+                    <param name="D_gain" value="0.05"/>
+		    <param name="field_of_view_rad" value="10.0"/>
+		    <param name="max_angular_vel" value="0.5"/>
+		    <param name="max_linear_vel" value="0.5"/>
+		    <param name="oscilation_bounds" value="2.0"/>
+		    <param name="waypoint_dist" value="0.1"/>
+		   <!--do not stop at every point-->
+		    <param name="slow_down" value="true"/>
+	</node>
+
+
+</launch>

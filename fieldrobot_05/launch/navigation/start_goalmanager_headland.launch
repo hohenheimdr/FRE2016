@@ -1,0 +1,14 @@
+<!-- -->
+<launch>
+<!--read waypoints and publish next waypoint-->
+	<node pkg="goal_manager" type="goal_manager" name="goal_mangager" output="screen">
+		<param name="next_waypoint" value="/goal"/>
+		<param name="waypoint_list" value="$(find fieldrobot_05)/waypoints/task1_waypoints.txt"/>
+		<param name="distance" value="/fmControllers/goal_distance"/>
+		<param name="min_distance" value="0.1"/>
+		<param name="path_publisher" value="/goalpath"/>
+		<!--as lower frequency as longer the robot will wait at a reached goalpoint-->
+		<param name="frequency" value="100"/>
+		<param name="user_goal_input" value="/move_base_simple/goal"/>
+	</node>
+</launch>

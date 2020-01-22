@@ -1,0 +1,22 @@
+scan_filter_chain:
+
+- name: range
+  type: LaserScanRangeFilter
+  params:
+    lower_threshold: 0.1
+    upper_threshold: 0.45
+
+- name: interpolation
+  type: InterpolationFilter
+
+- type: LaserScanIntensityFilter 
+  name: intensity
+  params:
+    lower_threshold: 250
+    upper_threshold: 1000
+    disp_histogram: 0
+
+- type: LaserScanFootprintFilter 
+  name: footprint_filter
+  params:
+    inscribed_radius: 0.45

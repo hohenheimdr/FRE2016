@@ -1,0 +1,29 @@
+<!---->
+<launch>
+
+<!--<param name="/use_sim_time" value="true"/>
+ variables of greenhouse test...
+<node pkg="tf" type="static_transform_publisher" name="new_tf_for_kinect" args="0.51 -0.05 0.95 1.5707 3.14159 0.82 base_link kinect_new 50"/>
+
+<node pkg="tf" type="static_transform_publisher" name="new_tf2_for_kinect" args="0.0 0.0 0.0 0 0 0 kinect_new kinect2_link 50"/>
+-->
+<!---aply a voxel grid to kinect data -->
+<node pkg="pcl_test" type="voxel_grid" output="screen" name="voxel_grid">
+<param name="cloud_in_1" value="/kinect2/depth_lowres/points" />
+<param name="input_frame_id" value="kinect2_rgb_optical_frame" />
+<param name="cloud_out1" value="/kinect_filtered" />
+<param name="base_frame" value="base_link" />
+<param name="use_ground_plane_filter" value="true" />
+<param name="push_to_plane" value="false" />
+<param name="sigma" value="0.050" />
+<param name="height_max" value="0.9" />
+<param name="use_voxel_filter" value="true" />
+<param name="x" value="0.035" />
+<param name="y" value="0.035" />
+<param name="z" value="0.035" />
+
+<param name="assemble" value="true" />
+
+<param name="frequency" value="10" />
+</node>
+</launch>

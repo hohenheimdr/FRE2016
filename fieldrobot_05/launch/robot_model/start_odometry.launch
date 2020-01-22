@@ -1,0 +1,25 @@
+<!---->
+<launch>
+
+<!-- start node for differential odometry coresponding to imu and encoder values-->
+		<node pkg="fieldrobot_05" name="differential_odometry" type="differential_odometry" output="screen" >
+			<param name="enc_left_sub" value="/motorcontrollers/sdc2130/encoder_ch2" />
+			<param name="enc_right_sub" value="/motorcontrollers/sdc2130/encoder_ch1" />
+			<param name="imu_sub" value="/fmInformation/imu" />
+			<param name="odom_pub" value="/fmKnowledge/odometry" />
+			<param name="encoder_output" value="absolute"></param>  
+			<param name="ticks_per_meter_left" value="53500"></param>  
+			<param name="ticks_per_meter_right" value="142200"></param> 
+ 			<param name="diff_steer_wheel_distance" value="0.45"/>
+			<param name="max_ticks_per_update" value="50000"/>
+			<param name="yaw_angle_source" value="odometry"></param>
+			<param name="yaw_angle_source" value="imu_orientation"></param>
+			<param name="vehicle_frame" value="base_link"></param>      
+			<param name="odom_estimate_frame" value="odom"></param>   
+			<param name="odom_reset_sub" value="/joy/button_Y"></param>
+			<!--<param name="odom_reset_sub2" value="/gps_odom"></param>   -->
+   
+		</node>
+2232
+
+</launch>

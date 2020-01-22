@@ -1,0 +1,50 @@
+<!---->
+<launch>
+<!--start laserscanners-->
+	<include file="$(find fieldrobot_05)/launch/sensors/start_laserscanners.launch"/>
+<!-- start specific laserscanner filter-->
+<!-- start specific laserscanner filter maybee? check at stage!-->
+	<include file="$(find fieldrobot_05)/launch/filters/start_laser_filter.launch"/>
+<!--<param name="/use_sim_time" value="true"/>-->
+<!-- define the static tfs of the lasers....
+<node pkg="tf" type="static_transform_publisher" name="tf_laser_front_2" args="0.45 0.0 0.20 0 0 0 base_link lms1xx_front 50"/>
+
+ -->
+
+
+<!--start ransac algroithm and row_speed extractor... change the mode when headland was detected...-->
+<include file="$(find fieldrobot_05)/launch/filters/start_ransac_row_detector.launch"/>
+
+
+<!--read waypoints and publish next waypoint-->
+	<node pkg="goal_manager" type="goal_manager" name="goal_mangager" >
+		<param name="next_waypoint" value="/goal"/>
+		<param name="waypoint_list" value="$(find fieldrobot_05)/waypoints/task1_waypoints.txt"/>
+		<param name="distance" value="/fmControllers/goal_distance"/>
+		<param name="min_distance" value="0.2"/>
+		<param name="path_publisher" value="/goalpath"/>
+		<!--as lower frequency as longer the robot will wait at a reached goalpoint-->
+		<param name="frequency" value="100"/>
+		<param name="user_goal_input" value="/move_base_simple/goal"/>
+	</node>
+
+<!-- start rabbit follower with neccessary points...-->
+<!--create a velocity command out of the position and the next waypoint (just deterministic for headland turns)-->
+	<node pkg="fieldrobot_05" name="rabbit_follower" type="rabbit_follower_node" output="screen">
+		    <param name="cmd_vel_topic_id" value="/cmd_vel_point"/>
+		    <param name="rabbit_frame_id" value="rabbit"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+		    <param name="P_gain" value="1.0"/>
+		    <param name="I_gain" value="0.0"/>
+		    <param name="I_max" value="100"/>
+                    <param name="D_gain" value="0.05"/>
+		    <param name="field_of_view_rad" value="10.0"/>
+		    <param name="max_angular_vel" value="1.0"/>
+		    <param name="max_linear_vel" value="1.0"/>
+		    <param name="oscilation_bounds" value="2.0"/>
+		    <param name="waypoint_dist" value="0.1"/>
+		   <!--do not stop at every point-->
+		    <param name="slow_down" value="false"/>
+	</node>
+
+</launch>

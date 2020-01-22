@@ -1,0 +1,24 @@
+<!---->
+<launch>
+
+<!-- define the static tfs of the lasers.... -->
+<node pkg="tf" type="static_transform_publisher" name="tf_laser_front" args="0.35 0.0 0.20 0 0 0 base_link lms1xx_front 50"/>
+
+<node pkg="tf" type="static_transform_publisher" name="tf_laser_back" args="-0.35 0.0177 0.20 3.1415 0.0 0.0 base_link lms1xx_back 50"/>
+
+<!--start the laserscanners (3 at the moment... for event push it to 2 ?) -->
+	<node pkg="sick_laser_filter" type="sick_laser_filter_node" name="sick_laser_filter_node" output="screen">
+
+		<param name="laser1" value="false"/>
+
+		<param name="tf_laser1" value="false"/>
+		<param name="tf_laser2" value="false"/>
+		<param name="tf_laser3" value="false"/>
+	
+	</node>
+
+<!-- direct start also the neccessary filters
+<include file="$(find fieldrobot_05)/launch/filters/start_laser_filter.launch"/>-->
+
+
+</launch>

@@ -1,0 +1,30 @@
+scan_filter_chain:
+
+- type: LaserArrayFilter
+  name: laser_median_filter
+  params: 
+    range_filter_chain:
+      - name: median_5
+        type: MultiChannelMedianFilterFloat 
+        params:
+          number_of_observations: 5
+          unused: 2
+    intensity_filter_chain:
+      - name: median_5
+        type: MultiChannelMedianFilterFloat 
+        params:
+          number_of_observations: 5
+          unused: 5
+
+- name: range
+  type: LaserScanRangeFilter
+  params:
+    lower_threshold: 0.0
+    upper_threshold: 2.0
+
+- type: LaserScanFootprintFilter 
+  name: footprint_filter
+  params:
+    inscribed_radius: 0.55
+
+

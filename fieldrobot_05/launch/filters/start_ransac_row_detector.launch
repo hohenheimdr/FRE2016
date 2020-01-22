@@ -1,0 +1,63 @@
+<!---->
+<launch>
+
+<!---->
+
+<!-- start the detection of rows with the ransac parameter -->
+<node pkg="fieldrobot_05" type="lidar_row_extractor_node" name="lidar_row_extractor_node" respawn="true">
+		<param name="subscriber_topic" value="/lms1xx_front/scan"/>
+		<param name="frame_id" value="/lms1xx_front"/>
+		<param name="laser_scan_max_distance" value="3.0"/>
+		<param name="inliers_epsilon" value="1.0"/>
+		<param name="ransac_n" value="50000"/>            
+		<param name="box_lim_x" value="1.0"/>
+		<param name="box_lim_y" value="0.6"/>
+		### means, headland wwill be detected half a meter before end of row..
+		<param name="headland_box_min_x" value="0.5"/>
+		<param name="headland_box_max_x" value="1.5"/>  
+		<param name="headland_box_lim_y" value="1.0"/>
+		<param name="ransac_minimumdistance_fit" value="-0.5"/>  
+		<param name="ransac_maximum_distance_fit" value="1.5"/>  
+		<param name="minimum_inliers" value="0.9"/>        
+	
+</node>
+
+<!--start row speed extractor and mode definition reader -->
+<node pkg="fieldrobot_05" type="row_speed_extractor" name="row_speed_extractor" output="screen" respawn="true">
+			<param name="mode_pub" value="/mode_sub"/>
+			<param name="frame_id" value="/base_link"/> 
+			<param name="cmd_vel" value="/cmd_vel_row"/>  
+			<param name="row_sub" value="/fmExtractors/rows"/>
+			###### this value is in m/s
+			<param name="speed_max" value="1.0"/>
+			###### this value is in rad....
+			<param name="angle_max" value="0.3"/>
+			####### this value is in rad.....ca 45°
+			<param name="angle_ignore_val" value="0.3"/>
+			<param name="time_delay" value="0.5"/>
+			####### goal distance for row tf 
+			<param name="goal_dist" value="0.4"/>
+			####### inverse angle
+			<param name="inverse_angle" value="false"/>
+			<param name="mode_changer_active" value="false"/>
+		</node>
+
+<!--create a velocity command out of the position and the next waypoint (just deterministic for headland turns)
+		    <param name="cmd_vel_topic_id" value="/cmd_vel_row"/>
+		    <param name="rabbit_frame_id" value="row"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+		    <param name="P_gain" value="1.0"/>
+		    <param name="I_gain" value="0.0"/>
+		    <param name="I_max" value="100"/>
+                    <param name="D_gain" value="0.0"/>
+		    <param name="field_of_view_rad" value="10.0"/>
+		    <param name="max_angular_vel" value="1.0"/>
+		    <param name="max_linear_vel" value="0.5"/>
+		    <param name="oscilation_bounds" value="2.0"/>
+		    <param name="waypoint_dist" value="0.3"/>
+		  <param name="slow_down" value="false"/>
+	</node> --> 
+
+
+
+</launch>
