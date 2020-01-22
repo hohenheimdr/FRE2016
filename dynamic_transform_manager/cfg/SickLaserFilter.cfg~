@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+PACKAGE = 'sick_laser_filter'
+
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add('laser_1',        bool_t,     0, 'use this device', True)
+gen.add('IP1', 	          str_t,      0, 'set IP of device', '192.168.0.12')
+gen.add('frame_id1',      str_t,      0, 'frame_id', 'lms1xx_front')
+gen.add("x_1", double_t, 0, "x transform to robot_base",    0.3, -2,   2)
+gen.add("y_1", double_t, 0, "y transform to robot_base",    0, -2,   2)
+gen.add("z_1", double_t, 0, "z transform to robot_base",    0, -2,   2)
+gen.add("roll_1", double_t, 0, "roll transform to robot_base",    0, -3.1415,  3.1415)
+gen.add("pitch_1", double_t, 0, "pitch transform to robot_base",    0, -3.1415,  3.1415)
+gen.add("yaw_1", double_t, 0, "yaw transform to robot_base",    0,-3.1415,  3.1415)
+
+gen.add('laser_2',        bool_t,     0, 'use this device', False)
+gen.add('IP2', 	          str_t,      0, 'set IP of device', '192.168.0.10')
+gen.add('frame_id2',      str_t,      0, 'frame_id of second laser','lms1xx_back')
+
+gen.add("x_2", double_t, 0, "x transform to robot_base",    -0.3, -2,   2)
+gen.add("y_2", double_t, 0, "y transform to robot_base",    0, -2,   2)
+gen.add("z_2", double_t, 0, "z transform to robot_base",    0, -2,   2)
+gen.add("roll_2", double_t, 0, "roll transform to robot_base",   0,-3.1415,  3.1415)
+gen.add("pitch_2", double_t, 0, "pitch transform to robot_base",   0,-3.1415,  3.1415)
+gen.add("yaw_2", double_t, 0, "yaw transform to robot_base",    0, -3.1415,  3.1415)
+
+gen.add('laser_3',        bool_t,     0, 'use this device', False)
+gen.add('IP3', 	          str_t,      0, 'set IP of device', '192.168.0.11')
+gen.add('frame_id3',      str_t,      0, 'frame_id', 'lms1xx_top')
+
+gen.add("x_3", double_t, 0, "x transform to robot_base",    0.3, -2,   2)
+gen.add("y_3", double_t, 0, "y transform to robot_base",    0, -2,   2)
+gen.add("z_3", double_t, 0, "z transform to robot_base",    0.3, -2,   2)
+gen.add("roll_3", double_t, 0, "roll transform to robot_base",    0, -3.1415,  3.1415)
+gen.add("pitch_3", double_t, 0, "pitch transform to robot_base",    0, -3.1415,  3.1415)
+gen.add("yaw_3", double_t, 0, "yaw transform to robot_base",    0,-3.1415,  3.1415)
+
+gen.add('filter_option',     double_t,   0, 'approximate distance blabla.. in [m]', 0.01, 0, 10.)
+gen.add('robot_frame',    str_t,      0, 'Robot Frame', 'base_link')
+gen.add('fixed_frame',    str_t,      0, 'Fixed Frame', 'fixed_frame')
+gen.add('scan_publisher', str_t,      0, 'publish the scans under this name', 'scan_complete')
+
+exit(gen.generate(PACKAGE, 'sick_laser_filter_node', 'SickLaserFilter'))

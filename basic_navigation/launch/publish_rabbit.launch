@@ -1,0 +1,6 @@
+<!---->
+<launch>
+	<!--publish a transform-->
+	<node pkg="tf" type="static_transform_publisher" name="rabbit_tf" args="0.0 1 0 0.0 0 0 odom rabbit 10" />
+
+</launch>

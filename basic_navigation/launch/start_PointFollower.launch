@@ -1,0 +1,11 @@
+<!---->
+<launch>
+
+	<!--create a velocity command out of the position and the next waypoint (just deterministic)-->
+	<node pkg="basic_navigation" name="point_follower" type="point_follower" output="screen">
+		    <param name="cmd_vel_topic_id" value="/cmd_vel"/>
+		    <param name="rabbit_frame_id" value="rabbit"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+	</node>
+	
+</launch>

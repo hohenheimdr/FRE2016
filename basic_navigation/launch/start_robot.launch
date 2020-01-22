@@ -1,0 +1,9 @@
+<!---->
+<launch>	
+
+	<include file="$(find gertbot)/launch/gertbot_with_encoders.launch"/>
+	<include file="$(find sonar)/launch/sonar_node.launch"/>
+	<include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+	<include file="$(find servo_control)/launch/start_servo.launch"/>
+
+</launch>

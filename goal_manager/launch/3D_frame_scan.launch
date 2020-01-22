@@ -1,0 +1,19 @@
+<!-- -->
+<launch>
+<!--read waypoints and publish next waypoint-->
+	<node pkg="goal_manager" type="robot_goal_manager" name="frame_goal_mangager" output="screen">
+		<param name="next_waypoint" value="/frame_goal"/>
+		<param name="waypoint_list" value="$(find goal_manager)/waypoints/x_axis_scan.txt"/>
+		<param name="min_distance" value="0.01"/>
+		<param name="path_publisher" value="/frame_path"/>
+		<!--as lower frequency as longer the robot will wait at a reached goalpoint-->
+		<param name="user_goal_input" value="/move_base_simple/goal"/>
+		<param name="rabbit_frame" value="/frame_goal"/>
+		<param name="robot_frame" value="/base_link"/>
+		<param name="fixed_frame" value="/frame"/>
+		<param name="waittime" value="0.1"/>
+		<param name="wait_for_topic" value="false"/>
+		<param name="wait_topic_name" value="/"/>
+		
+	</node>
+</launch>

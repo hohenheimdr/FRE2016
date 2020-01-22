@@ -1,0 +1,15 @@
+<!---->
+<launch>
+
+<node pkg="dynamic_transform_manager" type="dynamic_transform_node" output="screen" name="laser_tf_front" >
+	<param name="frame_id" value="base_link"/>
+	<param name="reference_id" value="lms1xx_front"/>
+	<param name="x" value="0"/>
+	<param name="y" value="0"/>
+	<param name="z" value="0"/>
+	<param name="roll" value="0"/>
+	<param name="pitch" value="0"/>
+	<param name="yaw" value="0"/>
+</node>
+
+</launch>

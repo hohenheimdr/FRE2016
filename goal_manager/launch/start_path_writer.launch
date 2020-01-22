@@ -1,0 +1,16 @@
+<!-- -->
+<launch>
+<!--read waypoints and publish next waypoint-->
+	<node pkg="goal_manager" type="path_writer" name="path_writer" output="screen">
+		<param name="odom_subscriber_topic" value="/fmKnowledge/odometry"/>
+		<param name="waypoint_list" value="$(find goal_manager)/waypoints/y_axis_scan.txt"/>
+		<param name="path_publisher_topic" value="/path_recorded"/>
+		<param name="frequency" value="10"/>
+		<param name="frame_id" value="odom"/>
+		
+		<param name="output_file" value="/home/talos/rosworkspace/src/goal_manager/waypoints/test2.txt"/>
+		<param name="record_file" value="true"/>
+		<param name="odometry_error" value="0.1"/>
+		
+	</node>
+</launch>

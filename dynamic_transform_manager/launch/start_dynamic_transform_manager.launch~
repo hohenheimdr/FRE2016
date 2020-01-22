@@ -1,0 +1,9 @@
+<!---->
+<launch>
+<!-- publish transforms-->
+<node pkg="dynamic_transform_manager" type="dynamic_transform_node" output="screen" name="dynamic_transform_node">
+
+</node>
+
+
+</launch>

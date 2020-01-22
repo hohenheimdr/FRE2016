@@ -1,0 +1,10 @@
+<!---->
+<launch>
+	<node pkg="image_detection" type="image_detection" name="image_detector" output="screen">
+		<param name="image_raw" value="/usb_cam/image_raw"/>
+		<param name="image_out1" value="/test1"/>
+		<param name="image_out2" value="/test2"/>
+		
+	</node>
+
+</launch>

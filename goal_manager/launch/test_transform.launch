@@ -1,0 +1,5 @@
+<launch>
+
+	<node pkg="tf" type="static_transform_publisher" name="frame_broadcaster" args="-0.86 0.71 0.35 3.1415 0 0 base_link test 20"/>
+
+</launch>
