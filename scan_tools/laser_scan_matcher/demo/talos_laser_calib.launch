@@ -1,0 +1,63 @@
+<!-- 
+Example launch file: launches the scan matcher with pre-recorded data
+-->
+
+<launch>
+
+<remap from="scan" to="/front_scan_filtered" />
+<!--
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /laser 40" />
+
+ <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+    args="0.0 0.0 0.0 0.0 0 0.0 /lms1xx_front /laser 40" />-->
+
+  #### start the laser scan_matcher ##############################
+
+  <node pkg="laser_scan_matcher" type="laser_scan_matcher_node" 
+    name="laser_scan_matcher_node" output="screen">
+
+    <param name="use_odom" value="fmKnowledge/odometry"/>
+
+    <param name="max_iterations" value="1000"/>
+    <param name="max_linear_correction" value="0.5"/>
+    <param name="max_angular_correction_deg" value="10"/>
+ <param name="epsilon_xy" value="0.01"/>
+ <param name="epsilon_theta" value="0.01"/>
+<param name="max_correspondence_dist" value="0.3"/>
+<param name="sigma" value="0.001"/>
+<param name="use_corr_tricks" value="0"/>
+<param name="restart" value="0"/>
+<param name="restart_threshold_mean_error" value="0.3"/>
+<param name="restart_dt" value=" 1.0"/>
+
+<param name="restart_dtheta" value="5.0"/>
+
+<param name="clusterin_threshold" value="0.25"/>
+
+<param name="orientation_neighbourhood" value="20"/>
+
+<param name="use_point_to_line_distance" value="1"/>
+
+<param name="do_alpha_test" value=" 1"/>
+
+<param name="do_alpha_test_thresholdDeg" value="20.0"/>
+
+<param name="outliers_maxPerc" value="0.3"/>
+
+<param name="outliers_adaptive_order" value="0.7"/>
+<param name="outliers_adaptive_mult" value="2.0"/>
+<param name="do_visibility_test" value="0"/>
+<param name="outliers_remove_doubles" value="1"/>
+<param name="do_compute_covariance" value="0"/>
+<param name="debug_verify_tricks" value="0"/>
+<param name="use_ml_weights" value="0"/>
+<param name="use_sigma_weights" value="0"/>
+
+<param name="publish_tf" value="true"/>
+
+
+
+  </node>
+
+</launch>
