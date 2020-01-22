@@ -1,0 +1,126 @@
+<!---->
+<launch>
+ <param name="use_sim_time" value="true"/>
+
+<!-- Erstellung und  Vorfilterung der PointClouds in relevante Bereiche für RANSAC -->
+
+  <node pkg="laser_filters" type="scan_to_cloud_filter_chain" 
+      name="tilt_shadow_filter">
+    <rosparam command="load" file="$(find laser_row_detection)/launch/my_laser_config_l.yaml" />
+    <param name="high_fidelity" value="true" />
+    <param name="target_frame" type="string" value="base_link" />
+    <remap from="scan" to="/lms1xx_front/scan"/>
+    <remap from="cloud_filtered" to="scan_links" />
+  </node>
+  
+ <node pkg="laser_filters" type="scan_to_cloud_filter_chain" 
+      name="tilt_shadow_filter_r">
+    <rosparam command="load" file="$(find laser_row_detection)/launch/my_laser_config_r.yaml" />
+    <param name="high_fidelity" value="true" />
+    <param name="target_frame" type="string" value="base_link" />
+    <remap from="scan" to="/lms1xx_front/scan"/>
+    <remap from="cloud_filtered" to="scan_rechts" />
+  </node>
+
+<!-- Erstellung und Vorfilterung der PointCloud für Hinderniserkennung -->
+
+ <node pkg="laser_filters" type="scan_to_cloud_filter_chain" 
+      name="obstacle_filter_middle">
+    <rosparam command="load" file="$(find laser_row_detection)/launch/obstacle_filter.yaml" />
+    <param name="high_fidelity" value="true" />
+    <param name="target_frame" type="string" value="base_link" />
+    <remap from="scan" to="/lms1xx_front/scan"/>
+    <remap from="cloud_filtered" to="scan_mitte" />
+  </node>
+
+<!-- RANSAC zur Reihenfilterung (Nur zur Kontrolle), jeweils links und rechts -->
+
+  <node pkg="laser_row_detection" type="robot_ransac_row_filter" 
+      name="row_filter_left">
+    <param name="cloud_in" value="/scan_links"/>
+    <param name="cloud_out" value="/ransac_test_links"/>    
+    <param name="frame_id" value="/base_link"/>
+    <param name="radius" value="0.2"/>
+    <param name="neigbour_nr" value="50"/>
+    <param name="distance" value="0.1"/>
+    <param name="xmin" value="-1"/>
+    <param name="xmax" value="1"/>
+    <param name="ymin" value="-1"/>
+    <param name="ymax" value="1"/>
+  </node>
+
+<node pkg="laser_row_detection" type="robot_ransac_row_filter"
+      name="row_filter_right">
+    <param name="cloud_in" value="/scan_rechts"/>
+    <param name="cloud_out" value="/ransac_test_rechts"/>    
+    <param name="frame_id" value="/base_link"/>
+    <param name="radius" value="0.5"/>
+    <param name="neigbour_nr" value="50"/>
+    <param name="distance" value="0.1"/>
+    <param name="xmin" value="-1"/>
+    <param name="xmax" value="1"/>
+    <param name="ymin" value="-1"/>
+    <param name="ymax" value="1"/>
+  </node>
+  
+<!-- RANSAC: Erstellung von Geradengleichung und Pose zur Reihenerkennung -->
+ 
+  <node pkg="laser_row_detection" type="ransac_line_generator" 
+      name="line_generator_left">
+    <param name="cloud_in" value="/scan_links"/>
+    <param name="row_out" value="/ransac_left"/>    
+    <param name="frame_id" value="/base_link"/>
+    <param name="radius" value="0.5"/>
+    <param name="neigbour_nr" value="20"/>
+    <param name="distance" value="1"/>
+    <param name="xmin" value="-1"/>
+    <param name="xmax" value="1"/>
+    <param name="ymin" value="-1"/>
+    <param name="ymax" value="1"/>
+    <param name="odometry" value="/fmKnowledge/odometry_front"/>
+  </node>
+  
+  <node pkg="laser_row_detection" type="ransac_line_generator"
+      name="line_generator_right">
+    <param name="cloud_in" value="/scan_rechts"/>
+    <param name="row_out" value="/ransac_right"/>    
+    <param name="frame_id" value="/base_link"/>
+    <param name="radius" value="0.5"/>
+    <param name="neigbour_nr" value="20"/>
+    <param name="distance" value="1"/>
+    <param name="xmin" value="-1"/>
+    <param name="xmax" value="1"/>
+    <param name="ymin" value="-1"/>
+    <param name="ymax" value="1"/>
+    <param name="odometry" value="/fmKnowledge/odometry_front"/>
+  </node>
+
+<!-- Ermittlung des Korrekturwertes zur Navigation zwischen zwei Pflanzenreihen -->
+
+ <node pkg="laser_row_detection" type="cmdvel_laser_correction" output="screen"
+      name="cmdvel_laser_correction">
+    <param name="pose_right" value="/ransac_right_pose"/>
+    <param name="pose_left" value="/ransac_left_pose"/>
+    <param name="correction_out" value="/correction"/>
+    <param name="headland_out" value="/headland"/>
+  </node>
+
+<!-- Filter zur Hinderniserkennung -->
+
+  <node pkg="laser_row_detection" type="obstacle_filter"  output="screen"
+      name="obstacle_filter">
+    <param name="cloud_in" value="/scan_mitte"/>
+    <param name="info_out" value="/obstacle_detection"/>    
+    <param name="frame_id" value="/base_link"/> 
+  </node>
+
+
+ <arg name="gui" default="False" />
+ <param name="robot_description" textfile="$(find fieldrobot_05)/urdf/talos_basic.urdf" />
+ <param name="use_gui" value="$(arg gui)"/>
+ <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+ <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+ 
+</launch>
+

@@ -1,0 +1,55 @@
+scan_filter_chain:
+
+- name: box_filter_1
+  type: laser_filters/LaserScanBoxFilter
+  params:
+    box_frame: base_link
+    max_x: .inf
+    max_y: -0.2
+    max_z: .inf
+    min_x: -.inf
+    min_y: -.inf
+    min_z: -.inf
+
+- name: box_filter_2
+  type: laser_filters/LaserScanBoxFilter
+  params:
+    box_frame: base_link
+    max_x: .inf
+    max_y: .inf
+    max_z: .inf
+    min_x: -.inf
+    min_y: 0.2
+    min_z: -.inf
+
+- name: box_filter_front
+  type: laser_filters/LaserScanBoxFilter
+  params:
+    box_frame: base_link
+    max_x: .inf
+    max_y: .inf
+    max_z: .inf
+    min_x: 0.7
+    min_y: -.inf
+    min_z: -.inf
+   
+- name: box_filter_back
+  type: laser_filters/LaserScanBoxFilter
+  params:
+    box_frame: base_link
+    max_x: 0.45
+    max_y: .inf
+    max_z: .inf
+    min_x: -.inf
+    min_y: -.inf
+    min_z: -.inf
+   
+- name: shadows
+  type: laser_filters/ScanShadowsFilter
+  params:
+    min_angle: 70
+    max_angle: 110
+    neighbors: 1000
+    window: 1
+
+

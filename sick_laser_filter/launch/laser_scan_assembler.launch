@@ -1,0 +1,24 @@
+<!---->
+<launch>
+<!--
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="front_assembler">
+    <remap from="scan" to="front_scan_filtered"/>
+    <param name="max_scans" type="int" value="100" />
+    <param name="fixed_frame" type="string" value="odom" />
+  </node>
+
+<node type="laser_scan_assembler" pkg="laser_assembler" name="back_assembler">
+    <remap from="scan" to="back_scan_filtered"/> 
+    <param name="max_scans" type="int" value="100" />
+    <param name="fixed_frame" type="string" value="odom" />
+  </node>
+
+
+<node pkg="laser_assembler" type="periodic_snapshotter" name="periodic_snapshotter">
+
+</node>
+-->
+
+
+
+</launch>

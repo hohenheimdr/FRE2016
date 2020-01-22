@@ -1,0 +1,43 @@
+scan_filter_chain:
+- type: LaserArrayFilter
+  name: laser_median_filter
+  params: 
+    range_filter_chain:
+      - name: median_5
+        type: MultiChannelMedianFilterFloat 
+        params:
+          number_of_observations: 5
+          unused: 10
+    intensity_filter_chain:
+      - name: median_5
+        type: MultiChannelMedianFilterFloat 
+        params:
+          number_of_observations: 5
+          unused: 10
+
+- name: intensity
+  type: LaserScanIntensityFilter
+  params:
+    lower_threshold: 300
+    upper_threshold: 2000
+    disp_histogram: 0
+
+- name: footprint_filter
+  type: LaserScanFootprintFilter
+  params:
+    inscribed_radius: 0.45
+
+- name: shadows
+  type: ScanShadowsFilter
+  params:
+    min_angle: 0
+    max_angle: 200
+    neighbors: 20
+    window: 1
+- name: dark_shadows
+  type: LaserScanIntensityFilter
+  params: 
+    lower_threshold: 100
+    upper_threshold: 10000
+    disp_histogram: 0
+
