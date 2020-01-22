@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+PACKAGE = 'kinect_aux'
+
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add('start_tilt',        bool_t,     0, 'Start_dynamic tilting...', True)
+
+gen.add("tilt_angle", double_t, 0, 'change orientation of Sensor',    0, -60,   10)
+
+gen.add('LED_ON',        bool_t,     0, 'turns it on and off..', True)
+
+gen.add('publish_transform',        bool_t,     0, 'publish the tf of sensor', True)
+gen.add('imu_frame', 	    str_t,      0, 'kinect_imu_frame', 'kinect_imu_frame')
+gen.add('base_frame', 	    str_t,      0, 'base_frame', 'base_frame')
+
+exit(gen.generate(PACKAGE, 'kinect_aux_node', 'KinectAux'))

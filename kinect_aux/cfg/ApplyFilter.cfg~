@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+PACKAGE = 'sick_laser_filter'
+
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add('laser1_sub', 	    str_t,      0, 'subscriber of laser 1', 'laser1')
+gen.add('laser1_filter',        bool_t,     0, 'publish this filtered cloud', False)
+gen.add('laser1_pub',      str_t,      0, 'publish the cloud here', 'laser1_filtered')
+#filter options
+gen.add('laser2_sub', 	    str_t,      0, 'subscriber of laser 2', 'laser2')
+gen.add('laser2_filter',        bool_t,     0, 'publish this filtered cloud', False)
+gen.add('laser2_pub',      str_t,      0, 'publish the cloud here', 'laser2_filtered')
+#filter options
+gen.add('laser3_sub', 	    str_t,      0, 'subscriber of laser 3', 'laser3')
+gen.add('laser3_filter',        bool_t,     0, 'publish this filtered cloud', False)
+gen.add('laser3_pub',      str_t,      0, 'publish the cloud here', 'laser3_filtered')
+
+
+gen.add('laser1_pub',      str_t,      0, 'publish the cloud here', 'laser1_filtered')
+
+gen.add('all_laser',        bool_t,     0, 'combine all active lasers to one cloud', False)
+gen.add('frame_all',      str_t,      0, 'frame_id of combined laser','robot_frame')
+gen.add('laser_all_pub',      str_t,      0, 'publish the cloud here', 'laser_all_filtered')
+
+
+exit(gen.generate(PACKAGE, 'apply_filter_node', 'ApplyFilter'))
