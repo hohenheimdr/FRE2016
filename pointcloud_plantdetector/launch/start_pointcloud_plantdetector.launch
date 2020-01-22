@@ -1,0 +1,44 @@
+<!---->
+<launch>
+
+<param name="use_sim_time" value="true"/>
+
+  <!-- apply cloud filter for front scan for assembling-->
+	<node pkg="laser_filters" type="scan_to_cloud_filter_chain" output="screen" name="lasercloud_filter">
+		<remap from="scan" to="/lms1xx_front_tilt/scan" />
+		<rosparam command="load" file="$(find leg_detector)/launch/filters/tilt_scan.yaml" />
+		<param name="change_tf" value="true" />
+		<param name="high_fidelity" value="true" />
+	</node>
+
+<!---assemble clouds and aply a voxel grid for anaysing the data (test)-->
+	<node pkg="pcl_test" type="cloud_assembler" output="screen" name="assemble">
+		<param name="cloud_in_1" value="/cloud_filtered" />
+		<param name="cloud_in_2" value="/front_tilt_cloud_filtered" />
+		<param name="cloud_in_3" value="/back_cloud_filtered" />
+		<param name="cloud_out1" value="/assembled_cloud1" />
+		<param name="cloud_out2" value="/assembled_cloud2" />
+		<param name="cloud_out3" value="/assembled_cloud3" />
+		<param name="base_frame" value="world" />
+		<param name="x" value="0.005" />
+		<param name="y" value="0.005" />
+		<param name="z" value="0.005" />
+		<param name="frequency" value="1" />
+
+	</node>
+<!--start 3d plant detector-->	
+	<node pkg="pointcloud_plantdetector" type="3D_plant_detector" output="screen" name="plant_filter">
+		<param name="cloud_in" value="/assembled_cloud1" />
+		<param name="frame_id" value="/world" />
+		<param name="filtered_cloud" value="/no_plane_cloud" />
+		<param name="plants_pub" value="/plants_output" />
+
+		<param name="ransac_dist" value="0.05" />
+		<param name="radius" value="0.02" />
+		<param name="neighbour_nr" value="30" />
+		<param name="distance" value="0.02" />
+		<param name="minClusterSize" value="10" />
+
+	</node>
+
+</launch>
