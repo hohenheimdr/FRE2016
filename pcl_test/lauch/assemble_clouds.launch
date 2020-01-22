@@ -1,0 +1,22 @@
+<!---->
+<launch>
+
+<!---assemble clouds and aply a voxel grid-->
+<node pkg="pcl_test" type="cloud_assembler" output="screen" name="assemble">
+<param name="cloud_in_1" value="/front_cloud_filtered" />
+<param name="cloud_in_2" value="/front_tilt_cloud_filtered" />
+<param name="cloud_in_3" value="/back_cloud_filtered" />
+<param name="cloud_out1" value="/assembled_cloud1" />
+<param name="cloud_out2" value="/assembled_cloud2" />
+<param name="cloud_out3" value="/assembled_cloud3" />
+<param name="base_frame" value="world" />
+
+
+<param name="x" value="0.005" />
+<param name="y" value="0.005" />
+<param name="z" value="0.005" />
+
+<param name="frequency" value="1" />
+
+</node>
+</launch>

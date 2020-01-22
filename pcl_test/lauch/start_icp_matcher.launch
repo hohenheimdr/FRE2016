@@ -1,0 +1,14 @@
+<!---->
+<launch>
+
+<!---assemble clouds and aply a voxel grid-->
+<node pkg="pcl_test" type="icp_matcher" output="screen" name="assemble">
+<param name="cloud_in" value="/assembled_cloud1" />
+<param name="reference_cloud" value="/assembled_cloud3" />
+
+<param name="base_frame" value="odom" />
+
+<param name="frequency" value="10" />
+
+</node>
+</launch>
