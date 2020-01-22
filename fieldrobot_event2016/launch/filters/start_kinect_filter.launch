@@ -1,0 +1,23 @@
+<!---->
+<launch>
+
+<!---aply a voxel grid to kinect data -->
+<node pkg="pcl_test" type="voxel_grid" output="screen" name="voxel_grid">
+<param name="cloud_in_1" value="/kinect2/depth_lowres/points" />
+<param name="input_frame_id" value="kinect2_link" />
+<param name="cloud_out1" value="/kinect_filtered" />
+<param name="base_frame" value="base_link" />
+<param name="use_ground_plane_filter" value="false" />
+<param name="push_to_plane" value="false" />
+<param name="sigma" value="0.050" />
+<param name="height_max" value="0.9" />
+<param name="use_voxel_filter" value="true" />
+<param name="x" value="0.035" />
+<param name="y" value="0.035" />
+<param name="z" value="0.035" />
+
+<param name="assemble" value="false" />
+
+<param name="frequency" value="2" />
+</node>
+</launch>

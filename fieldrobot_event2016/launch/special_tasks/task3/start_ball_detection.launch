@@ -1,0 +1,7 @@
+<!---->
+
+<launch>
+	<include file="$(find fieldrobot_event2016)/launch/special_tasks/task3/start_ball_detection_right.launch"/>
+	<include file="$(find fieldrobot_event2016)/launch/special_tasks/task3/start_ball_detection_left.launch"/>
+
+</launch>

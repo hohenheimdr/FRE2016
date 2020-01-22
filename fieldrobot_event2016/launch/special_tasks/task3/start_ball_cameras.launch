@@ -1,0 +1,21 @@
+<!---->
+<launch>
+###start left camera
+  
+  <node name="usb_cam_right" pkg="usb_cam" type="usb_cam_node" output="screen" respawn="true">
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+  </node>
+<node name="usb_cam_left" pkg="usb_cam" type="usb_cam_node" output="screen" respawn="true">
+    <param name="video_device" value="/dev/video1" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+  </node>
+	
+
+</launch>

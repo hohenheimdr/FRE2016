@@ -1,0 +1,36 @@
+<!---->
+
+<launch>
+
+<node pkg="pointcloud_plantdetector" type="laser_row_filter" name="obstacle_filter_front">
+		<param name="cloud_in" value="/front_cloud_filtered" />
+		<param name="frame_id" value="/base_link" />
+		<param name="filtered_cloud" value="/obstacle_row" />
+		<param name="plants_pub" value="/right_row_back" />
+
+		<param name="use_box_filter" value="true" />
+		<param name="x_min" value="0.4" />
+		<param name="y_min" value="-0.2" />
+		<param name="z_min" value="-1" />
+		<param name="x_max" value="0.7" />
+		<param name="y_max" value="0.2" />
+		<param name="z_max" value="1" />	
+		<param name="remove_plane" value="false" />
+		<param name="use_radius_outlier_filter" value="true" />
+		<param name="neighbour_nr" value="3" />
+		<param name="use_statistical_outlier_filter" value="false" />
+		<param name="push_to_plane" value="false" />
+		<param name="use_eucledian_cluster" value="false" />
+		<param name="use_mincluster" value="false" />		
+</node>
+
+<!-- Filter zur Hinderniserkennung -->
+
+  <node pkg="laser_row_detection" type="obstacle_filter"  name="obstacle_filter_detection">
+    <param name="cloud_in" value="/obstacle_row"/>
+    <param name="info_out" value="/obstacle_detected"/>    
+    <param name="point_ignore" value="1"/> 
+  </node>
+
+
+</launch>

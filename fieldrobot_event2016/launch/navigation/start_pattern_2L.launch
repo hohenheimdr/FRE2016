@@ -1,0 +1,21 @@
+<launch>
+<!--read waypoints and publish next waypoint-->
+	<node pkg="goal_manager" type="robot_goal_manager" name="robot_goal_mangager" output="screen">
+		<param name="next_point" value="/point"/>
+		<param name="next_pose" value="/robot_pose"/>
+		<param name="waypoint_list" value="$(find fieldrobot_event2016)/waypoints/2L.txt"/>
+		<param name="path_publisher" value="/robot_path"/>
+		<!--as lower frequency as longer the robot will wait at a reached goalpoint-->
+		<param name="frequency" value="2"/>
+		<param name="user_goal_input" value="/move_base_simple/goal"/>
+		<param name="rabbit_frame" value="headland_point"/>
+		<param name="robot_frame" value="base_link"/>
+		<param name="fixed_frame" value="odom"/>
+		<param name="relative_goals" value="true"/>
+		<param name="waittime" value="0.1"/>
+		<param name="break_after_seconds" value="25.0"/>
+		<param name="wait_for_topic" value="true"/>
+		<param name="wait_topic_name" value="/movement_finished"/>
+		
+	</node>
+	</launch>

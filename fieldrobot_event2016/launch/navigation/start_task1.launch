@@ -1,0 +1,19 @@
+<!--this launch file start the whole neccessary programs for task1 start_robot.launch should already running-->
+<launch>
+	<!--start the row_follower filters and actuators-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_row_follower.launch"/>
+	<!--start the row_follower filters for the back laser and actuators-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_row_follower_back_laser.launch"/>
+	
+	<!--start the headland control layer-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_point_follower.launch"/>
+	<!--start the mode control layer
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_mode_controler_task1.launch"/>-->
+
+<!--start the obstacle detector for the security mode changer-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_obstacle_detector.launch"/>
+
+<!--start the mode changer with included obstacle detecion-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_mode_controler_obstacle_detection.launch"/>
+
+</launch>

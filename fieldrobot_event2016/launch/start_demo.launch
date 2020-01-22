@@ -1,0 +1,26 @@
+<!--starting the basic functions and sensors of the robot -->
+<launch>
+<!--start row follower-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_row_follower.launch"/>
+<!--start point follower for point to point navigation-->
+<include file="$(find fieldrobot_event2016)/launch/navigation/start_point_follower.launch"/>
+<!--start the obstacle detector for the security mode changer-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_obstacle_detector.launch"/>
+
+<!--start the mode changer with included obstacle detecion-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_mode_controler_obstacle_detection.launch"/>
+
+<!--check the laser pointcloud for emergency stops and give back how to turn at the place--> 
+	<node pkg="talos" type="error_laser_cmd" name="error_laser_cmd" output="screen">
+		<param name="front_cloud" value="/error_cloud_front"/>
+		<param name="back_cloud" value="/error_cloud_back"/>
+		<param name="front_left" value="/front_left"/>
+		<param name="front_right" value="/front_right"/>		
+		<param name="back_left" value="/back_left"/>
+		<param name="back_right" value="/back_right"/>
+		<param name="point_ignore" value="1"/>
+	</node>
+
+
+
+</launch>

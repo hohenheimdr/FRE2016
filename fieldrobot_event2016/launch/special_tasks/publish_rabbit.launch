@@ -1,0 +1,6 @@
+<!---->
+<launch>
+<!--publish a rabbit direct in 20 m.-->
+<node pkg="tf" type="static_transform_publisher" name="rabbit_tf" args="10 0 0 0 0 0 0 odom rabbit 100" />
+
+</launch>

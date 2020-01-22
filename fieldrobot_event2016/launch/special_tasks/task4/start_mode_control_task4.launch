@@ -1,0 +1,14 @@
+<!---->
+<launch>
+	<node pkg="fieldrobot_event2016" type="mode_control_task4" name="mode_control_task4" output="screen">		
+			<param name="mode_sub" value="/actual_mode"/>
+			<param name="mode_pub" value="/new_mode"/>
+			<param name="seeder_button" value="/joy/button_LT"/>
+			<param name="line_detected" value="/line_detected"/>	
+			<param name="motor_seeder_cmd" value="/cmd_motor"/>
+			<param name="movement_finished" value="/movement_finished"/>
+			<param name="frequency" value="5"/>
+			<param name="mode_change_duration" value="1"/>				
+		</node>
+
+</launch>

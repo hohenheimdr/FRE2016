@@ -1,0 +1,30 @@
+<!---->
+<launch>
+###start left camera
+  
+  <node name="usb_cam_right" pkg="usb_cam" type="usb_cam_node" output="screen" respawn="false">
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+  </node>
+
+	<node pkg="fieldrobot_event2016" type="detect_ball" name="detect_ball_right" output="screen">
+		<param name="image_raw" value="/usb_cam_right/image_raw"/>
+		<param name="image_out1" value="/binar_image_right"/>
+		<param name="image_out2" value="/result_right"/>
+		<param name="show_trackbar" value="false"/>
+		<param name="camera_frame" value="camera_frame_right"/>
+		<param name="H_min" value="120"/>
+		<param name="S_min" value="0"/>
+		<param name="V_min" value="170"/>
+		<param name="H_max" value="255"/>
+		<param name="S_max" value="255"/>
+		<param name="V_min" value="255"/>
+		<param name="rad_min" value="50" />		
+		<param name="rad_max" value="90" />	
+		<param name="ball_detected_pub" value="/joy/button_RT"/>
+	</node>
+
+</launch>

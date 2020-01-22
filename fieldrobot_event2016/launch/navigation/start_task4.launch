@@ -1,0 +1,7 @@
+<!--this launch file start the whole neccessary programs for task1 start_robot.launch should already running-->
+<launch>
+	<!--start the headland control layer for moving forward and for the headland turn-->
+	<include file="$(find fieldrobot_event2016)/launch/navigation/start_point_follower.launch"/>
+	<!--start the mode control layer-->
+	
+</launch>

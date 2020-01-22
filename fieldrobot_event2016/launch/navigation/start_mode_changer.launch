@@ -1,0 +1,27 @@
+<!---->
+<launch>
+	<node pkg="fieldrobot_event2016" type="mode_changer_twist" name="mode_changer" output="screen">
+			
+			<param name="cmd_vel_joy" value="/cmd_vel_joy"/>
+			<param name="cmd_vel_headland" value="/cmd_vel_headland"/>
+			<param name="cmd_vel_static" value="/cmd_vel_static"/>
+			<param name="cmd_vel_row" value="/cmd_vel_row"/>
+			<param name="cmd_vel_obstacle" value="/cmd_vel_obstacle"/>
+
+			<param name="cmd_vel_pub" value="/cmd_vel"/>
+			<param name="mode_sub" value="/new_mode"/>
+			<param name="mode_pub" value="/actual_mode"/>
+			
+			<param name="mode_change_duration" value="10"/>
+		
+			<param name="row_button" value="/joy/button_A"/>
+			<param name="obstacle_button" value="/joy/button_B"/>
+			<param name="static_button" value="/joy/button_X"/>
+			<param name="headland_button" value="/joy/button_Y"/>
+			<param name="odom_reset" value="/odom_set"/>
+			<param name="distance_sub" value="/goal"/>
+			
+		</node>
+
+
+</launch>

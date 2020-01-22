@@ -1,0 +1,27 @@
+<!---->
+<launch>
+
+<!-- define the static tfs of the lasers.... -->
+<node pkg="tf" type="static_transform_publisher" name="tf_laser_front" args="0.32 0.0 0.18 0 0 0 base_link laser_front 50"/>
+
+<node pkg="tf" type="static_transform_publisher" name="tf_laser_back" args="-0.38 0.0 0.22 3.1415 0.0 0.0 base_link laser_back 50"/>
+ <node name="sick_tim571_front" pkg="sick_tim" type="sick_tim551_2050001" respawn="true" >
+<param name="frame_id" value="laser_front" />
+    <param name="range_max" type="double" value="25.0" />
+         <param name="hostname" type="string" value="192.168.0.15" />
+         <param name="port" type="string" value="2112" />
+         <param name="timelimit" type="int" value="5" />
+	<remap from="scan" to="scan_front"/>
+  </node>
+
+ <node name="sick_tim571_back" pkg="sick_tim" type="sick_tim551_2050001" respawn="true" >
+<param name="frame_id" value="laser_back" />
+    <param name="range_max" type="double" value="25.0" />
+         <param name="hostname" type="string" value="192.168.0.14" />
+         <param name="port" type="string" value="2112" />
+         <param name="timelimit" type="int" value="5" />
+	<remap from="scan" to="scan_back"/>
+  </node>
+
+
+</launch>

@@ -1,0 +1,60 @@
+<!---->
+<launch>
+<!-- allways start joystick with motorcontroller for user input! -->
+<!--front motorcontroller-->
+<group ns="motorcontrollers">	
+	<!--front motorcontroller-->
+		<node pkg="fieldrobot_event2016" type="sdc2130_core" name="sdc2130" respawn="true" >
+			<param name="toggle_turn" value="true"/>
+			<param name="port" value="/dev/ttyACM0"/>
+			<param name="speed_sub" value="/cmd_vel" />
+			<param name="max_controller_command" value="1000" />
+			<param name="max_acceleration" value="15000"/>
+			<param name="max_decceleration" value="30000"/>
+			<param name="vel_max" value="1.0"/>
+			<param name="angle_max" value="1.0"/> 
+			<param name="output_max" value="900"/>
+			<param name="output_offset_left" value="100"/>
+			<param name="output_offset_right" value="100"/>
+			<param name="P" value="1.02"/>
+			<param name="I" value="0.5"/>
+			<param name="D" value="0.25"/>
+			<param name="Pang" value="0.3"/>
+			<param name="Iang" value="0.005"/>
+			<param name="Dang" value="0.01"/>
+			<param name="closed_loop" value="false"/>
+			<param name="odometry_sub" value="/odometry_front"/>
+			<param name="distance_center_to_wheel" value="1.0"/>	
+		  
+		</node>
+	
+
+			<node pkg="fieldrobot_event2016" type="sdc2130_core" name="sdc2130_2" respawn="true" >
+				<param name="toggle_turn" value="true"/>
+				<param name="port" value="/dev/ttyACM1"/>
+				<param name="speed_sub" value="/cmd_vel" />
+				<param name="max_controller_command" value="900" />
+				<param name="max_acceleration" value="15000"/>
+				<param name="max_decceleration" value="30000"/>
+				<param name="vel_max" value="1.0"/>
+				<param name="angle_max" value="1.0"/> 
+				<param name="output_max" value="1000"/>
+				<param name="output_offset_left" value="85"/>
+				<param name="output_offset_right" value="105"/>
+				<param name="P" value="1.02"/>
+				<param name="I" value="0.5"/>
+				<param name="D" value="0.25"/>
+				<param name="Pang" value="0.3"/>
+				<param name="Iang" value="0.005"/>
+				<param name="Dang" value="0.01"/>
+				<param name="closed_loop" value="false"/>
+				<param name="odometry_sub" value="/odometry_back"/>
+				<param name="distance_center_to_wheel" value="1.0"/>	
+			  
+			</node>
+
+		
+	</group>
+
+
+</launch>

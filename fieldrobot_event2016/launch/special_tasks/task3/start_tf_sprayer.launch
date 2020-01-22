@@ -1,0 +1,29 @@
+<!---->
+<launch>
+###define sprayer positions
+
+
+<node pkg="tf" type="static_transform_publisher" name="sprayer_left" args="-0.5 0.2 0.24 0 0 0  base_link sprayer_left 100" />
+<node pkg="tf" type="static_transform_publisher" name="sprayer_right" args="-0.5 -0.2 0.24 0 0 0  base_link sprayer_right 100" />
+
+<node pkg="fieldrobot_event2016" type="spray_tf" name="ball_tf_sprayer_left" output="screen" >
+		   <param name="rabbit_frame_id" value="ball"/>
+		    <param name="sprayer_frame_id" value="/sprayer_left"/>
+		    <param name="spray_publisher" value="/joy/button_RB"/>
+		   ##variables floor indoors... need a change for outdoor conditions
+		    <param name="goal_distance_pub" value="ball_distance_left"/>
+		    <param name="dist_thresh" value="0.25"/>
+		    <param name="time_offset" value="5.0"/>
+</node>
+
+<node pkg="fieldrobot_event2016" type="spray_tf" name="ball_tf_sprayer_right" output="screen" >
+		   <param name="rabbit_frame_id" value="ball"/>
+		    <param name="sprayer_frame_id" value="/sprayer_right"/>
+		    <param name="spray_publisher" value="/joy/button_RT"/>
+		   ##variables floor indoors... need a change for outdoor conditions
+		    <param name="goal_distance_pub" value="ball_distance_right"/>
+		    <param name="dist_thresh" value="0.25"/>
+		    <param name="time_offset" value="5.0"/>
+</node>
+
+</launch>

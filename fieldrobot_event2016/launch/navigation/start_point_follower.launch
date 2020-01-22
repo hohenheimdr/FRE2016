@@ -1,0 +1,33 @@
+<!---->
+<launch>
+<node pkg="basic_navigation" name="point_follower" type="point_follower" output="screen">
+		    <param name="cmd_vel_topic_id" value="/cmd_vel_headland"/>
+		    <param name="rabbit_frame_id" value="headland_point"/>
+		    <param name="vehicle_frame_id" value="base_link"/>
+		    <param name="goal_reached" value="/movement_finished"/>
+		   ##variables floor indoors... need a change for outdoor condition
+
+ 		    <param name="dist_offset" value="0.05"/>
+		### what value always should get started with... (start moving condition)
+		    <param name="angle_offset" value="0.45"/>
+		   ###biggest acceptable error for angle difference
+ 		    <param name="angle_thresh" value="0.1"/>
+		    ###defines when the algorithm tries to change the angle difference
+ 		    <param name="angle_react_thresh" value="0.1"/>
+		    ## start angle when the vehicle starts moving... to not get a extreme turn....
+		    <param name="start_moving_angle" value="0.1"/>
+
+		    <param name="time_offset" value="0.05"/>
+		    <param name="linear_offset" value="0.1"/>
+		    ###distance acceptable for goalpoint
+		    <param name="dist_thresh" value="0.2"/>
+		    <param name="speed_max" value="0.4"/>
+		    <param name="angle_speed_max" value="1.0"/>
+		    <param name="use_PID_for_turn" value="true"/>
+		    <param name="P" value="2.0"/>
+		    <param name="I" value="0.1"/>
+		    <param name="D" value="0.7"/>
+		  
+	</node>
+
+</launch>

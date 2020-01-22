@@ -1,0 +1,69 @@
+<!---->
+<launch>
+
+<!-- start node for differential odometry coresponding to imu and encoder values-->
+		<node pkg="fieldrobot_event2016" name="differential_odometry" type="differential_odometry" output="screen" >
+			<param name="enc_left_sub" value="/motorcontrollers/sdc2130_2/encoder_ch1" />
+			<param name="enc_right_sub" value="/motorcontrollers/sdc2130_2/encoder_ch2" />
+			<param name="imu_sub" value="/imu" />
+			<param name="odom_pub" value="/odometry_front" />
+			<param name="encoder_output" value="absolute"></param>  
+			<param name="ticks_per_meter_left" value="110000"></param>  
+			<param name="ticks_per_meter_right" value="142200"></param> 
+ 			<param name="diff_steer_wheel_distance" value="0.49"/>
+			<param name="diff_steer_wheel_ticks_per_rev" value="-250"/>
+
+			<param name="center_distance" value="0.165"/>
+			<param name="wheel_left_frame" value="left_wheel"/>
+			<param name="wheel_right_frame" value="right_wheel"/>
+			<param name="wheel_z_offset" value="0.15"/>
+			<param name="diff_steer_wheel_radius" value="0.15"/>
+			<param name="max_ticks_per_update" value="50000"/>
+			<!--<param name="yaw_angle_source" value="odometry"></param>-->
+			<param name="yaw_angle_source" value="imu_orientation"></param>
+			<param name="vehicle_frame" value="base_link"></param>      
+			<param name="odom_estimate_frame" value="odom_front"></param>   
+			<param name="odom_reset_sub" value="/joy/button_LB"></param>
+			<param name="publish_odom" value="false"></param>
+			<param name="covariance_x" value="0.1"/>
+			<param name="covariance_y" value="0.1"/>
+			<param name="covariance_z" value="99999"/>
+			<param name="covariance_roll" value="0.1"/>
+			<param name="covariance_pitch" value="0.1"/>
+			<param name="covariance_yaw" value="0.1"/>
+		</node>
+		
+	<node pkg="fieldrobot_event2016" name="differential_odometry_back" type="differential_odometry" output="screen" >
+			<param name="enc_left_sub" value="/motorcontrollers/sdc2130/encoder_ch2" />
+			<param name="enc_right_sub" value="/motorcontrollers/sdc2130/encoder_ch1" />
+			<param name="imu_sub" value="/imu" />
+			<param name="odom_pub" value="/odometry_back" />
+			<param name="encoder_output" value="absolute"></param>  
+			<param name="ticks_per_meter_left" value="110000"></param>  
+			<param name="ticks_per_meter_right" value="142200"></param> 
+ 			<param name="diff_steer_wheel_distance" value="0.49"/>
+			<param name="diff_steer_wheel_ticks_per_rev" value="250"/>
+			<param name="center_distance" value="-0.165"/>
+			<param name="wheel_left_frame" value="left_wheel_back"/>
+			<param name="wheel_right_frame" value="right_wheel_back"/>
+			<param name="wheel_z_offset" value="0.15"/>
+			<param name="diff_steer_wheel_radius" value="0.15"/>
+			<param name="max_ticks_per_update" value="50000"/>
+			<param name="yaw_angle_source" value="odometry"></param>
+			<param name="yaw_angle_source" value="imu_orientation"></param>
+			<param name="vehicle_frame" value="base_link"></param>      
+			<param name="odom_estimate_frame" value="odom_back"></param>   
+			<param name="odom_reset_sub" value="/joy/button_LB"></param>
+			<param name="publish_odom" value="false"></param>
+			<param name="covariance_x" value="0.3"/>
+			<param name="covariance_y" value="0.3"/>
+			<param name="covariance_z" value="99999"/>
+			<param name="covariance_roll" value="0.1"/>
+			<param name="covariance_pitch" value="0.1"/>
+			<param name="covariance_yaw" value="0.1"/>
+	</node>
+			<!--<param name="odom_reset_sub2" value="/gps_odom"></param>   -->
+		
+
+
+</launch>

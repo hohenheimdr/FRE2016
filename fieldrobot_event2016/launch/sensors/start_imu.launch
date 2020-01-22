@@ -1,0 +1,35 @@
+<!-- VectorNav VN-100 IMU launch file -->
+
+
+<launch>
+<node pkg="tf" type="static_transform_publisher" name="imu_link_broadcaster" args="0 0.0 0.24 0.0 3.1415 0.0 base_link imu 50"/>
+
+
+	<group ns="fmSensors">
+		<!--create_dynamic transform for the imu
+		<node pkg="dynamic_transform_manager" type="dynamic_transform_node" output="screen" name="imu_transform"> </node>-->
+
+		<!-- extract data from messages transmitted by the VectorNav VN-100 IMU -->
+		<node pkg="vectornav_vn100" name="imu_node"  type="vectornav_vn100_node" respawn="true">
+			<param name="vectornav_vn100_sub" value="/fmData/imu_rx"/>
+			<param name="imu_pub" value="/imu"/>
+			<param name="frame_id" value="imu"/>
+			<param name="use_enu" value="false"/>
+			<param name="covariance_x" value="0.1"/>
+			<param name="covariance_y" value="0.1"/>
+			<param name="covariance_z" value="0.1"/>
+		 </node>
+		
+	</group>
+	<group ns="fmLib">
+		<!-- serial communication with the IMU -->
+		<node pkg="serial_string" name="imu_serial_string_node" type="serial_string_node" respawn="true">
+			<param name="publisher_topic" value="/fmData/imu_rx" />	 
+			<param name="subscriber_topic" value="/fmData/imu_tx" />
+			<param name="device" value="/dev/ttyUSB0" />	
+			<param name="baudrate" value="115200" />
+			<param name="termination_character" value="10"/>
+		</node> 	
+	</group>
+</launch>
+

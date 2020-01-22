@@ -1,0 +1,19 @@
+<!---->
+<launch>
+	<node pkg="fieldrobot_event2016" type="mode_control_task1" name="mode_control_task1" output="screen">
+			
+			<param name="mode_sub" value="/actual_mode"/>
+			<param name="mode_pub" value="/new_mode"/>
+		
+			<param name="headland_detected_front" value="/headland_detected"/>
+			<param name="headland_detected_back" value="/headland_detected_back"/>	
+
+			<param name="obstacle_detected" value="no_obstacles_in_this_task"/>
+			<param name="movement_finished" value="/movement_finished"/>
+			<param name="frequency" value="5"/>
+			<param name="mode_change_duration" value="1"/>
+						
+		</node>
+
+
+</launch>

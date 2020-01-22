@@ -1,0 +1,27 @@
+<!---->
+<launch>
+
+ <env name="ROS_MASTER_URI" value="http://144.41.176.50:11311"/>
+
+<machine name="main" address="144.41.176.50" user="talos" env-loader="/opt/ros/indigo/env.sh" default="true"/>
+<machine name="pi" address="144.41.176.48" user="talospi" env-loader="/opt/ros/indigo/env.sh" timeout="20"/>
+
+<node pkg="joy" type="joy_node" name="joy_node" output="screen" machine="pi">
+			<param name="joy_node/dev" value="/dev/input/js0"/>
+	</node>
+
+
+ <!--
+	<node machine="pi" pkg="raspberry_publisher" type="relais_node" name="light_relais_driver" output="screen" >
+			<param name="bool_input" value="/joy/button_B" />
+			<param name="cmd_vel" value="/light" />
+			<param name="cmd_vel_stamped" value="/cmd_vel_joy" />
+			<param name="pin_out" value="16" />
+			<param name="update_frequency" value="5" />
+          </node>-->
+ 
+
+</launch>
+
+
+
